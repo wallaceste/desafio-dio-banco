@@ -2,10 +2,10 @@ public class Main {
     public static void main(String[] args) {
 
         ContaPoupanca cpw = new ContaPoupanca(1244, "wallace");
-        ContaPoupanca cps = new ContaPoupanca(1244, "suzinne");
+        ContaPoupanca cps = new ContaPoupanca(1244, "stevan");
 
         ContaCorrente ccw = new ContaCorrente(4556, "wallace");
-        ContaCorrente ccs = new ContaCorrente(4556, "suzinne");
+        ContaCorrente ccs = new ContaCorrente(4556, "stevan");
 
         cpw.verSaldo();
         cps.verSaldo();
