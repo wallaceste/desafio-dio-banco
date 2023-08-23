@@ -20,9 +20,13 @@ public abstract class Conta implements IConta{
         return numero;
     }
 
-    public Banco getBanco() { return banco; }
+    protected Banco getBanco() { return banco; }
 
-    public String getNomeCliente() { return cliente.getNome(); }
+    protected String getNomeCliente() { return cliente.getNome(); }
+
+    public void setSaldo(double valor) {
+        this.saldo += valor;
+    }
 
     public void sacar(double valorSaque){
         if(this.saldo>=valorSaque){
@@ -41,7 +45,7 @@ public abstract class Conta implements IConta{
     public void transferir(double valorTransferencia, Conta contaDestino){
         if(this.saldo>=valorTransferencia){
             this.saldo -= valorTransferencia;
-            contaDestino.saldo += valorTransferencia;
+            contaDestino.setSaldo(valorTransferencia);
             System.out.println("Transferência realizada.");
         }else{
             System.out.println("Valor não disponível.");

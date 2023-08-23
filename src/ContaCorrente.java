@@ -1,4 +1,4 @@
-public class ContaCorrente extends Conta{
+public class ContaCorrente extends Conta implements IConta{
     //atributos
     private static int contadorNumero = 1;
 
