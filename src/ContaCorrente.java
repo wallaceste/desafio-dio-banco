@@ -3,7 +3,8 @@ public class ContaCorrente extends Conta{
     private static int contadorNumero = 1;
 
     //construtor
-    public ContaCorrente(int agencia, String cliente) {
+    public ContaCorrente(Banco banco, int agencia, String cliente) {
+        super.banco = banco;
         super.agencia = agencia;
         super.saldo = 0;
         super.cliente = new Cliente(cliente);

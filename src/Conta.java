@@ -1,5 +1,6 @@
 public abstract class Conta implements IConta{
     //atributos
+    protected Banco banco;
     protected int agencia;
     protected int numero;
     protected double saldo;
@@ -18,6 +19,10 @@ public abstract class Conta implements IConta{
     protected int getNumero() {
         return numero;
     }
+
+    public Banco getBanco() { return banco; }
+
+    public String getNomeCliente() { return cliente.getNome(); }
 
     public void sacar(double valorSaque){
         if(this.saldo>=valorSaque){

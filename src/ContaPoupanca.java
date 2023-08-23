@@ -3,7 +3,8 @@ public class ContaPoupanca extends Conta{
     private static int contadorNumero = 100;
 
     //construtor
-    public ContaPoupanca(int agencia, String cliente) {
+    public ContaPoupanca(Banco banco, int agencia, String cliente) {
+        super.banco = banco;
         super.agencia = agencia;
         super.saldo = 0;
         super.cliente = new Cliente(cliente);
