@@ -13,4 +13,15 @@ public class ContaPoupanca extends Conta{
         System.out.println("Conta Poupança aberta. Cliente " + super.cliente.getNome() + " - Agência " + super.agencia + " - Número " + super.numero);
     }
 
+
+    @Override
+    public String toString() {
+        return "ContaPoupanca{" +
+                "banco =" + banco +
+                ", agencia =" + agencia +
+                ", numero =" + numero +
+                ", saldo =" + saldo +
+                ", cliente =" + cliente +
+                '}';
+    }
 }

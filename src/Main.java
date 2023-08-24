@@ -10,14 +10,16 @@ public class Main {
         List<Banco> bancosList = new ArrayList<>();
         List<Conta> contaCorrenteList = new ArrayList<>();
         List<Conta> contaPoupancaList = new ArrayList<>();
-        int opcaoMenu = 0;
-        int opcaoMenuInterno = 0;
+        Conta contaEscolhida;
+        int opcaoMenu;
+        int opcaoMenuInterno;
         String nomeBanco;
         int idBancoEscolhido;
         int idAgenciaEscolhida;
         int idContaEscolhida;
         String nomeCliente;
         int numeroConta;
+        int seletor;
 
 
         do {
@@ -78,12 +80,15 @@ public class Main {
                 case 4:
                     System.out.println("Informe o nome do cliente:");
                     nomeCliente = scan.nextLine();
-                    for(int i=0;i<contaCorrenteList.size();i++){
-                        if(contaCorrenteList.get(i).getNomeCliente().equalsIgnoreCase(nomeCliente)){
-                            System.out.println("Conta Corrente: " + contaCorrenteList.get(i).numero);
+
+                    for(Conta conta: contaCorrenteList){
+                        if(conta.getNomeCliente().equalsIgnoreCase(nomeCliente)){
+                            System.out.println("Conta Corrente: " + conta.getNumero());
                         }
-                        if(contaPoupancaList.get(i).getNomeCliente().equalsIgnoreCase(nomeCliente)){
-                            System.out.println("Conta Poupança: " + contaPoupancaList.get(i).numero);
+                    }
+                    for(Conta conta: contaPoupancaList){
+                        if(conta.getNomeCliente().equalsIgnoreCase(nomeCliente)){
+                            System.out.println("Conta Poupança: " + conta.getNumero());
                         }
                     }
                     break;
@@ -95,37 +100,38 @@ public class Main {
                     System.out.println("Informe o numero da conta:");
                     numeroConta = scan.nextInt();scan.nextLine();
                     if(tipoConta == 1){
-                        for(int i=0;i<contaCorrenteList.size();i++){
-                            if(contaCorrenteList.get(i).getNomeCliente().equalsIgnoreCase(nomeCliente) &&
-                                    (contaCorrenteList.get(i).getNumero() == numeroConta)){
-                                idContaEscolhida = i;
-                                System.out.println("Conta " + contaCorrenteList.get(idContaEscolhida).getNumero() + " ,cliente " + contaCorrenteList.get(idContaEscolhida).getNomeCliente() + " selecionada.");
+                        for(Conta conta: contaCorrenteList){
+                            if(conta.getNomeCliente().equalsIgnoreCase(nomeCliente) &&
+                                    (conta.getNumero() == numeroConta)){
+                                System.out.println("Conta " + conta.getNumero() + " ,cliente " + conta.getNomeCliente() + " , selecionada.");
+                                contaEscolhida = conta;
 
                                 do{
                                     opcaoMenuInterno = menuInterno();
-                                    acoesContas(opcaoMenuInterno, idContaEscolhida, contaCorrenteList, contaPoupancaList);
+                                    acoesContas(opcaoMenuInterno, contaEscolhida, contaCorrenteList, contaPoupancaList);
                                 }while (opcaoMenuInterno!=0);
 
                             }
                         }
                     }else if(tipoConta == 2){
-                        for(int i=0;i<contaPoupancaList.size();i++){
-                            if(contaPoupancaList.get(i).getNomeCliente().equalsIgnoreCase(nomeCliente) &&
-                                    (contaPoupancaList.get(i).getNumero() == numeroConta)){
-                                idContaEscolhida = i;
-                                System.out.println("Conta " + contaPoupancaList.get(idContaEscolhida).getNumero() + " ,cliente " + contaPoupancaList.get(idContaEscolhida).getNomeCliente() + " selecionada.");
+                        for(Conta conta: contaPoupancaList){
+                            if(conta.getNomeCliente().equalsIgnoreCase(nomeCliente) &&
+                                    (conta.getNumero() == numeroConta)){
+                                System.out.println("Conta " + conta.getNumero() + " ,cliente " + conta.getNomeCliente() + " , selecionada.");
+                                contaEscolhida = conta;
 
                                 do{
                                     opcaoMenuInterno = menuInterno();
-                                    acoesContas(opcaoMenuInterno, idContaEscolhida, contaPoupancaList, contaCorrenteList);
+                                    acoesContas(opcaoMenuInterno, contaEscolhida, contaCorrenteList, contaPoupancaList);
                                 }while (opcaoMenuInterno!=0);
 
                             }
                         }
                     }
-
+                    break;
+                case 6:
+                    System.out.println(bancosList);
             }
-
         }while (opcaoMenu != 0);
     }
 
@@ -137,6 +143,7 @@ public class Main {
         System.out.println("3 - Abrir Conta Poupança");
         System.out.println("4 - Ver Contas de um Cliente");
         System.out.println("5 - Acessar conta");
+        System.out.println("6 - Listar bancos e agências");
         //etc
         System.out.println("0 - Sair");
         System.out.println("***************");
@@ -157,38 +164,41 @@ public class Main {
             return opcaoMenuInterno;
     }
 
-    public static void acoesContas(int acao, int idConta, List<Conta> contas, List<Conta> demaisContasParaDestino){
+    public static void acoesContas(int acao, Conta contaEscolhida, List<Conta> contasCorrente, List<Conta> contasPoupanca){
         Conta contaDestino = null;
         switch (acao){
             case 1://sacar
                 System.out.println("Informe o valor do saque:");
                 double valorSaque = scan.nextDouble();scan.nextLine();
-                contas.get(idConta).sacar(valorSaque);
+                contaEscolhida.sacar(valorSaque);
                 break;
             case 2://depositar
                 System.out.println("Informe o valor do depósito:");
                 double valorDeposito = scan.nextDouble();scan.nextLine();
-                contas.get(idConta).depositar(valorDeposito);
+                contaEscolhida.depositar(valorDeposito);
                 break;
             case 3://saldo
-                contas.get(idConta).verSaldo();
+                contaEscolhida.verSaldo();
                 break;
             case 4://transferir
                 System.out.println("Informe o valor da transferência:");
                 double valorTransferencia = scan.nextDouble();scan.nextLine();
                 System.out.println("Informe o numero da conta de destino");
                 int numContaDestino = scan.nextInt();scan.nextLine();
-                for (int i=0; i<contas.size();i++){
-                    if (contas.get(i).getNumero() == numContaDestino){
-                        contaDestino = contas.get(i);
+
+                for(Conta conta: contasCorrente){
+                    if(conta.getNumero() == numContaDestino){
+                        contaDestino = conta;
                     }
                 }
-                for (int i=0; i<demaisContasParaDestino.size();i++){
-                    if (demaisContasParaDestino.get(i).getNumero() == numContaDestino){
-                        contaDestino = demaisContasParaDestino.get(i);
+
+                for(Conta conta: contasPoupanca){
+                    if(conta.getNumero() == numContaDestino){
+                        contaDestino = conta;
                     }
                 }
-                contas.get(idConta).transferir(valorTransferencia, contaDestino);
+
+                contaEscolhida.transferir(valorTransferencia, contaDestino);
                 break;
         }
 

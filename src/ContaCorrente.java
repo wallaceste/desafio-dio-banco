@@ -13,4 +13,14 @@ public class ContaCorrente extends Conta{
         System.out.println("Conta Corrente aberta. Cliente " + super.cliente.getNome() + " - Agência " + super.agencia + " - Número " + super.numero);
     }
 
+    @Override
+    public String toString() {
+        return "ContaCorrente{" +
+                "banco=" + banco +
+                ", agencia= " + agencia +
+                ", numero= " + numero +
+                ", saldo= " + saldo +
+                ", cliente= " + cliente +
+                '}';
+    }
 }

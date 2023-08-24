@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Banco {
     private String nome;
 
@@ -23,6 +25,9 @@ public class Banco {
 
     @Override
     public String toString() {
-        return "Banco: " + nome + '\'';
+        return "Banco{" +
+                "nome='" + nome + '\'' +
+                ", agencias= " + Arrays.toString(agencias) +
+                '}';
     }
 }
